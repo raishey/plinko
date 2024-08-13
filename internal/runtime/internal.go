@@ -1,5 +1,7 @@
-// Copyright 2021, Shipt. All rights reserved.
-// Licensed under the Apache License
+/**
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 package runtime
 
 import (
@@ -9,9 +11,9 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/shipt/plinko"
-	"github.com/shipt/plinko/internal/composition"
-	"github.com/shipt/plinko/internal/sideeffects"
+	"gitlab.com/stevehebert/plinko"
+	"gitlab.com/stevehebert/plinko/internal/composition"
+	"gitlab.com/stevehebert/plinko/internal/sideeffects"
 )
 
 type plinkoStateMachine struct {

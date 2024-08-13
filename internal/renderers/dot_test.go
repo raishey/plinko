@@ -1,16 +1,18 @@
-// Copyright 2021, Shipt. All rights reserved.
-// Licensed under the Apache License
+/**
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 package renderers_test
 
 import (
 	"bytes"
 	"testing"
 
-	"github.com/shipt/plinko"
-	"github.com/shipt/plinko/internal/renderers"
-	"github.com/shipt/plinko/pkg/config"
-	"github.com/shipt/plinko/pkg/config/state"
 	"github.com/stretchr/testify/assert"
+	"gitlab.com/stevehebert/plinko"
+	"gitlab.com/stevehebert/plinko/internal/renderers"
+	"gitlab.com/stevehebert/plinko/pkg/config"
+	"gitlab.com/stevehebert/plinko/pkg/config/state"
 )
 
 const Created plinko.State = "Created"

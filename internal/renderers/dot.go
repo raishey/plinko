@@ -1,5 +1,7 @@
-// Copyright 2021, Shipt. All rights reserved.
-// Licensed under the Apache License
+/**
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 
 package renderers
 
@@ -8,7 +10,7 @@ import (
 	"io"
 	"os/exec"
 
-	"github.com/shipt/plinko"
+	"gitlab.com/stevehebert/plinko"
 )
 
 type Dot struct {
@@ -55,7 +57,7 @@ func (d *Dot) node(name, label, description string) {
 	d.write([]byte(fmt.Sprintf(d.style.templates.node, name, label, description)))
 }
 
-//DotFileToImg runs the dot command to convert a dot file into an image file
+// DotFileToImg runs the dot command to convert a dot file into an image file
 func DotFileToImg(from, to, format string) error {
 	_, err := exec.Command("sh", "-c", "dot -T"+format+" "+from+" -o "+to).Output()
 	return err

@@ -1,7 +1,6 @@
 # Plinko - a Fluent State Machine for Go
 
-
-[![Build Status](https://drone.shipt.com/api/badges/shipt/plinko/status.svg)](https://drone.shipt.com/shipt/plinko) [![codecov](https://codecov.io/gh/shipt/plinko/branch/main/graph/badge.svg?token=8UX649KGGV)](https://codecov.io/gh/shipt/plinko) Build Status
+![latest release](https://gitlab.com/stevehebert/plinko/-/badges/release.svg)
 
 ## Create state machines and lightweight state machine-based workflows directly in golang code
 
@@ -38,19 +37,19 @@ Some useful extensions are also provided:
 Using Plinko is easy.   First, use `go get` to istall the latest version of the library.  This command will install everything you need - in fact, one design goal of Plinko is to minimize dependencies.  There are no runtime dependencies required for Plinko, and the only dependencies used by the project are used for unit testing.
 
 ```go
-go get -u github.com/shipt/plinko`
+go get -u gitlab.com/stevehebert/plinko
 ```
 
 Next, include Plinko in your application:
 
 ```go
-import "github.com/shipt/plinko"
+import "gitlab.com/stevehebert/plinko"
 ```
 
 You will define state machine using the examples below, and compiling the state machine once to reuse again and again.  Efficiency is front of mind,  meaning the compilation process is fast and runs in far less than 1/10,000th of a second on a reasonable VM. Or, given a single thread on an x86 processor, a statemachine can be fully compiled and ready to run more than 10,000,000 times a second.  
 
 ## License
-shipt/plinko is licensed under the [MIT license](./LICENSE.md).
+https://gitlab.com/stevehebert/plinko is licensed under the [MIT license](./LICENSE.md).
 # Introspection
 The state machine can provide a list of triggers for a given state to provide simple access to the list of triggers for any state.
 

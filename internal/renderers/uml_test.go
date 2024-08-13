@@ -1,14 +1,16 @@
-// Copyright 2021, Shipt. All rights reserved.
-// Licensed under the Apache License
+/**
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 package renderers_test
 
 import (
 	"bytes"
 	"testing"
 
-	"github.com/shipt/plinko/internal/renderers"
-	"github.com/shipt/plinko/pkg/config"
 	"github.com/stretchr/testify/assert"
+	"gitlab.com/stevehebert/plinko/internal/renderers"
+	"gitlab.com/stevehebert/plinko/pkg/config"
 )
 
 func Test_CreateUML(t *testing.T) {

@@ -1,5 +1,7 @@
-// Copyright 2021, Shipt. All rights reserved.
-// Licensed under the Apache License
+/**
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 package runtime
 
 import (
@@ -7,9 +9,9 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/shipt/plinko"
-	"github.com/shipt/plinko/plinkoerror"
 	"github.com/stretchr/testify/assert"
+	"gitlab.com/stevehebert/plinko"
+	"gitlab.com/stevehebert/plinko/plinkoerror"
 )
 
 const Created plinko.State = "Created"

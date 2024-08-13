@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/shipt/plinko"
-	"github.com/shipt/plinko/internal/runtime"
-	"github.com/shipt/plinko/pkg/config/operation"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"gitlab.com/stevehebert/plinko"
+	"gitlab.com/stevehebert/plinko/internal/runtime"
+	"gitlab.com/stevehebert/plinko/pkg/config/operation"
 )
 
 const Created plinko.State = "Created"

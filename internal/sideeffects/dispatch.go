@@ -1,11 +1,13 @@
-// Copyright 2021, Shipt. All rights reserved.
-// Licensed under the Apache License
+/*
+- This source code is licensed under the MIT license found in the
+- LICENSE file in the root directory of this source tree.
+*/
 package sideeffects
 
 import (
 	"context"
 
-	"github.com/shipt/plinko"
+	"gitlab.com/stevehebert/plinko"
 )
 
 // AllowAllSideEffects is a convenience constant for registering a global
@@ -61,7 +63,8 @@ func (td TransitionDef) GetTrigger() plinko.Trigger {
 }
 
 // Dispatch is responsible for executing a set of side effect definitions when called upon.  It is sensitive to the definition
-//   in terms of what is called.
+//
+//	in terms of what is called.
 func Dispatch(ctx context.Context, stateAction plinko.StateAction, sideEffects []SideEffectDefinition, payload plinko.Payload, transitionInfo plinko.TransitionInfo, elapsedMilliseconds int64) int {
 	iCount := 0
 	for _, sideEffectDefinition := range sideEffects {

@@ -1,5 +1,7 @@
-// Copyright 2021, Shipt. All rights reserved.
-// Licensed under the Apache License
+/**
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 package runtime
 
 import (
@@ -7,8 +9,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/shipt/plinko"
 	"github.com/stretchr/testify/assert"
+	"gitlab.com/stevehebert/plinko"
 )
 
 const (
@@ -21,7 +23,7 @@ func TestGetCallerHelper(t *testing.T) {
 	})
 
 	// this follow test is based on the location of the above line
-	assert.Equal(t, "internal/runtime/internal_test.go:19", n)
+	assert.Equal(t, "internal/runtime/internal_test.go:21", n)
 
 }
 

@@ -1,5 +1,7 @@
-// Copyright 2021, Shipt. All rights reserved.
-// Licensed under the Apache License
+/**
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 package runtime
 
 import (
@@ -7,9 +9,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/shipt/plinko"
-	"github.com/shipt/plinko/internal/sideeffects"
-	"github.com/shipt/plinko/plinkoerror"
+	"gitlab.com/stevehebert/plinko"
+	"gitlab.com/stevehebert/plinko/internal/sideeffects"
+	"gitlab.com/stevehebert/plinko/plinkoerror"
 )
 
 func (psm plinkoStateMachine) EnumerateActiveTriggers(payload plinko.Payload) ([]plinko.Trigger, error) {
