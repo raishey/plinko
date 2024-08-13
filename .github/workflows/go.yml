@@ -50,6 +50,9 @@ jobs:
     - name: Display coverage
       run: go tool cover -func=coverage.out
 
+    - name: Go report card
+      uses: creekorful/goreportcard-action@v1.0
+
     - name: Upload coverage report
       uses: actions/upload-artifact@v3
       with:
