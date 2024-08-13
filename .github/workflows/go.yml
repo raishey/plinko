@@ -43,3 +43,22 @@ jobs:
 
     - name: Run linting
       run: go vet ./...
+
+    - name: Run tests with coverage
+      run: go test `go list ./... | grep -v ./pkg` -coverprofile=coverage.out
+
+    - name: Display coverage
+      run: go tool cover -func=coverage.out
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: coverage.out
+
+    - name: Codecov upload
+      uses: codecov/codecov-action@v3
+      with:
+        file: coverage.out
+        flags: unittests
+        fail_ci_if_error: true
