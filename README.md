@@ -1,6 +1,8 @@
 # Plinko - a Fluent State Machine for Go
 
 ![latest release](https://github.com/raishey/plinko/-/badges/release.svg)
+[![Go Report Card](https://goreportcard.com/badge/gitlab.com/stevehebert/plinko)](https://goreportcard.com/report/gitlab.com/stevehebert/plinko)
+
 
 ## Create state machines and lightweight state machine-based workflows directly in golang code
 
