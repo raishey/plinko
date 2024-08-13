@@ -33,7 +33,7 @@ func getFilterDefinition(stateAction plinko.StateAction) plinko.SideEffectFilter
 	return 0
 }
 
-// TransitionDef is used to notify the registered function of a transition occuring
+// TransitionDef is used to notify the registered function of a transition occurring
 type TransitionDef struct {
 	Source      plinko.State
 	Destination plinko.State
