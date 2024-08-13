@@ -7,7 +7,7 @@ package sideeffects
 import (
 	"context"
 
-	"gitlab.com/stevehebert/plinko"
+	"github.com/raishey/plinko"
 )
 
 // AllowAllSideEffects is a convenience constant for registering a global

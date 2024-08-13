@@ -4,7 +4,7 @@
  */
 package plinkoerror
 
-import "gitlab.com/stevehebert/plinko"
+import "github.com/raishey/plinko"
 
 type PlinkoStateError struct {
 	plinko.State

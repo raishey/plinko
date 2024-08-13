@@ -8,8 +8,8 @@ import (
 	"bytes"
 	"fmt"
 
-	"gitlab.com/stevehebert/plinko"
-	"gitlab.com/stevehebert/plinko/internal/renderers"
+	"github.com/raishey/plinko"
+	"github.com/raishey/plinko/internal/renderers"
 )
 
 func (pd PlinkoDefinition) Compile() plinko.CompilerOutput {

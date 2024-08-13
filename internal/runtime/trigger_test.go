@@ -9,9 +9,9 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/raishey/plinko"
+	"github.com/raishey/plinko/plinkoerror"
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/stevehebert/plinko"
-	"gitlab.com/stevehebert/plinko/plinkoerror"
 )
 
 const Created plinko.State = "Created"

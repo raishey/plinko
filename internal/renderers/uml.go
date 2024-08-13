@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"io"
 
-	"gitlab.com/stevehebert/plinko"
+	"github.com/raishey/plinko"
 )
 
 type UML struct {

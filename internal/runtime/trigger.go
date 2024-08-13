@@ -9,9 +9,9 @@ import (
 	"fmt"
 	"time"
 
-	"gitlab.com/stevehebert/plinko"
-	"gitlab.com/stevehebert/plinko/internal/sideeffects"
-	"gitlab.com/stevehebert/plinko/plinkoerror"
+	"github.com/raishey/plinko"
+	"github.com/raishey/plinko/internal/sideeffects"
+	"github.com/raishey/plinko/plinkoerror"
 )
 
 func (psm plinkoStateMachine) EnumerateActiveTriggers(payload plinko.Payload) ([]plinko.Trigger, error) {

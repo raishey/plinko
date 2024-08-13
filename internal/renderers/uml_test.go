@@ -8,9 +8,9 @@ import (
 	"bytes"
 	"testing"
 
+	"github.com/raishey/plinko/internal/renderers"
+	"github.com/raishey/plinko/pkg/config"
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/stevehebert/plinko/internal/renderers"
-	"gitlab.com/stevehebert/plinko/pkg/config"
 )
 
 func Test_CreateUML(t *testing.T) {

@@ -7,7 +7,7 @@ adhere to. Please [read the full text](https://code.fb.com/codeofconduct/) so
 that you can understand what actions will and will not be tolerated.
 
 ## Our Development Process
-This repository is homed at https://gitlab.com/stevehebert/plinko.   This is the primary repository that remains the source of truth above other forks.
+This repository is homed at https://github.com/raishey/plinko.   This is the primary repository that remains the source of truth above other forks.
 
 ## Pull Requests
 We actively welcome your pull requests. If you are planning on doing a larger

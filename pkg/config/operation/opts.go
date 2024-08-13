@@ -6,7 +6,7 @@
 package operation
 
 import (
-	"gitlab.com/stevehebert/plinko"
+	"github.com/raishey/plinko"
 )
 
 func WithName(name string) func(*plinko.OperationConfig) {

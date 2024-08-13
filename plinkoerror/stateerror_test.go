@@ -8,8 +8,8 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/raishey/plinko"
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/stevehebert/plinko"
 )
 
 func TestCreatePlinkoStateError(t *testing.T) {

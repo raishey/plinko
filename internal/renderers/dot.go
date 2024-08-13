@@ -10,7 +10,7 @@ import (
 	"io"
 	"os/exec"
 
-	"gitlab.com/stevehebert/plinko"
+	"github.com/raishey/plinko"
 )
 
 type Dot struct {

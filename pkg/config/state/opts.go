@@ -4,7 +4,7 @@
  */
 package state
 
-import "gitlab.com/stevehebert/plinko"
+import "github.com/raishey/plinko"
 
 func WithName(name string) func(*plinko.StateConfig) {
 	return func(c *plinko.StateConfig) {
