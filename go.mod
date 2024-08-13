@@ -1,4 +1,4 @@
-module gitlab.com/stevehebert/plinko
+module github.com/raishey/plinko
 
 go 1.16
 

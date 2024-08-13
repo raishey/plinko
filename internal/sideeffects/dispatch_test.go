@@ -8,8 +8,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/raishey/plinko"
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/stevehebert/plinko"
 )
 
 type testPayload struct {

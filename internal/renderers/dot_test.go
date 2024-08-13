@@ -8,11 +8,11 @@ import (
 	"bytes"
 	"testing"
 
+	"github.com/raishey/plinko"
+	"github.com/raishey/plinko/internal/renderers"
+	"github.com/raishey/plinko/pkg/config"
+	"github.com/raishey/plinko/pkg/config/state"
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/stevehebert/plinko"
-	"gitlab.com/stevehebert/plinko/internal/renderers"
-	"gitlab.com/stevehebert/plinko/pkg/config"
-	"gitlab.com/stevehebert/plinko/pkg/config/state"
 )
 
 const Created plinko.State = "Created"

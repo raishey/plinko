@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/raishey/plinko"
+	"github.com/raishey/plinko/internal/runtime"
+	"github.com/raishey/plinko/pkg/config/operation"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"gitlab.com/stevehebert/plinko"
-	"gitlab.com/stevehebert/plinko/internal/runtime"
-	"gitlab.com/stevehebert/plinko/pkg/config/operation"
 )
 
 const Created plinko.State = "Created"
@@ -438,7 +438,7 @@ func TestEnumerateTriggers(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, 0, len(triggers))
 
-	// request a state that doesn't exist in the state machine definiton and get an error thrown
+	// request a state that doesn't exist in the state machine definition and get an error thrown
 	payload = &testPayload{state: Claimed}
 	_, err = psm.EnumerateActiveTriggers(payload)
 

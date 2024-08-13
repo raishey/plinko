@@ -11,9 +11,9 @@ import (
 	"runtime"
 	"strings"
 
-	"gitlab.com/stevehebert/plinko"
-	"gitlab.com/stevehebert/plinko/internal/composition"
-	"gitlab.com/stevehebert/plinko/internal/sideeffects"
+	"github.com/raishey/plinko"
+	"github.com/raishey/plinko/internal/composition"
+	"github.com/raishey/plinko/internal/sideeffects"
 )
 
 type plinkoStateMachine struct {
