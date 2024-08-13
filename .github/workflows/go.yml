@@ -55,10 +55,3 @@ jobs:
       with:
         name: coverage-report
         path: coverage.out
-
-    - name: Codecov upload
-      uses: codecov/codecov-action@v3
-      with:
-        file: coverage.out
-        flags: unittests
-        fail_ci_if_error: true
