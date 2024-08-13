@@ -1,6 +1,6 @@
 # Plinko - a Fluent State Machine for Go
 
-![latest release](https://github.com/raishey/plinko/-/badges/release.svg)
+![GitHub Release](https://img.shields.io/github/v/release/raishey/plinko)
 [![Go Report Card](https://goreportcard.com/badge/gitlab.com/stevehebert/plinko)](https://goreportcard.com/report/gitlab.com/stevehebert/plinko)
 
 
