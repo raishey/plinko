@@ -1,5 +1,6 @@
 name: Code Scanning - Go
 
+
 on:
   push:
     branches: [ main ]
@@ -7,6 +8,10 @@ on:
     branches: [ main ]
   schedule:
     - cron: '0 0 * * 0' # Runs weekly
+
+permissions:
+  contents: read
+  security-events: write
 
 jobs:
   code-scanning:
