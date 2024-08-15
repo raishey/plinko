@@ -2,6 +2,7 @@
 
 ![GitHub Release](https://img.shields.io/github/v/release/raishey/plinko)
 [![Go Report Card](https://goreportcard.com/badge/gitlab.com/stevehebert/plinko)](https://goreportcard.com/report/gitlab.com/stevehebert/plinko)
+[![CodeQL](https://github.com/raishey/plinko/actions/workflows/code-scanning.yml/badge.svg)]
 
 
 ## Create state machines and lightweight state machine-based workflows directly in golang code
