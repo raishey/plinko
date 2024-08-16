@@ -44,17 +44,40 @@ jobs:
     - name: Run linting
       run: go vet ./...
 
+    - name: Go report card
+      uses: creekorful/goreportcard-action@v1.0
+
     - name: Run tests with coverage
       run: go test `go list ./... | grep -v ./pkg` -coverprofile=coverage.out
 
-    - name: Display coverage
-      run: go tool cover -func=coverage.out
+    - name: Install cover tool
+      run: go install github.com/matm/gocov-html@latest
 
-    - name: Go report card
-      uses: creekorful/goreportcard-action@v1.0
+    - name: Generate coverage report
+      run: gocov-html coverage.out > coverage.html
 
     - name: Upload coverage report
       uses: actions/upload-artifact@v3
       with:
         name: coverage-report
-        path: coverage.out
+        path: coverage.html
+
+    - name: Extract coverage percentage
+      id: coverage
+      run: |
+        go tool cover -func=coverage.out | grep total | awk '{print $3}' > coverage.txt
+        COVERAGE=$(cat coverage.txt)
+        echo "coverage=$COVERAGE" >> $GITHUB_ENV
+
+    - name: Comment on PR
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const coverage = process.env.coverage
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `### Code Coverage Report :shield:\n\nTotal Coverage: **${coverage}**`
+          })
