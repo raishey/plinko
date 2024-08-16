@@ -2,6 +2,7 @@
 
 ![GitHub Release](https://img.shields.io/github/v/release/raishey/plinko)
 [![Go Report Card](https://goreportcard.com/badge/gitlab.com/stevehebert/plinko)](https://goreportcard.com/report/gitlab.com/stevehebert/plinko)
+[![Go Coverage](https://github.com/raishey/plinko/wiki/coverage.svg)](https://raw.githack.com/wiki/raishey/plinko/coverage.html)
 ![CodeQL](https://github.com/raishey/plinko/actions/workflows/code-scanning.yml/badge.svg)
 
 
