@@ -53,6 +53,7 @@ jobs:
     - name: Update coverage report on wiki
       uses: ncruces/go-coverage-report@v0
       with:
+        coverage-file: cover.out
         report: true
         chart: true
         amend: true
