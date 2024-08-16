@@ -49,6 +49,11 @@ jobs:
 
     - name: Run tests with coverage
       run: go test `go list ./... | grep -v ./pkg` -coverprofile=cover.out
-
-    - name: Go Beautiful HTML Coverage
-      uses: 'gha-common/go-beautiful-html-coverage@v1'
+    
+    - name: Update coverage report
+      uses: ncruces/go-coverage-report@v0
+      with:
+        report: true
+        chart: true
+        amend: true
+      continue-on-error: true
