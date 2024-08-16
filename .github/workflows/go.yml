@@ -50,7 +50,7 @@ jobs:
     - name: Run tests with coverage
       run: go test `go list ./... | grep -v ./pkg` -coverprofile=cover.out
     
-    - name: Update coverage report
+    - name: Update coverage report on wiki
       uses: ncruces/go-coverage-report@v0
       with:
         report: true
