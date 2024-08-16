@@ -48,7 +48,7 @@ jobs:
       uses: creekorful/goreportcard-action@v1.0
 
     - name: Run tests with coverage
-      run: go test `go list ./... | grep -v ./pkg` -coverprofile=coverage.out
+      run: go test `go list ./... | grep -v ./pkg` -coverprofile=cover.out
 
     - name: Go Beautiful HTML Coverage
       uses: 'gha-common/go-beautiful-html-coverage@v1'
