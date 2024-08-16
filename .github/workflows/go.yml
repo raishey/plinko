@@ -44,17 +44,16 @@ jobs:
     - name: Run linting
       run: go vet ./...
 
-    - name: Run tests with coverage
-      run: go test `go list ./... | grep -v ./pkg` -coverprofile=coverage.out
-
-    - name: Display coverage
-      run: go tool cover -func=coverage.out
-
     - name: Go report card
       uses: creekorful/goreportcard-action@v1.0
 
-    - name: Upload coverage report
-      uses: actions/upload-artifact@v3
+    - name: Run tests with coverage
+      run: go test `go list ./... | grep -v ./pkg` -coverprofile=cover.out
+    
+    - name: Update coverage report on wiki
+      uses: ncruces/go-coverage-report@v0
       with:
-        name: coverage-report
-        path: coverage.out
+        report: true
+        chart: true
+        amend: true
+      continue-on-error: true
