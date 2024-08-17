@@ -60,28 +60,40 @@ The state machine can provide a list of triggers for a given state to provide si
 A state machine is created by articulating the states,  the triggers that can be used at each state and the destination state where they land. Here is a sample declaration of the states and triggers we will use:
 
 ```go
-const Created          State = "Created"
-const Opened           State = "Opened"
-const Claimed          State = "Claimed"
-const ArriveAtStore    State = "ArrivedAtStore"
-const MarkedAsPickedUp State = "MarkedAsPickedup"
-const Delivered        State = "Delivered"
-const Canceled         State = "Canceled"
-const Returned         State = "Returned"
+import "github.com/raishey/plinko"
 
-const Submit    Trigger = "Submit"
-const Cancel    Trigger = "Cancel"
-const Open      Trigger = "Open"
-const Claim     Trigger = "Claim"
-const Deliver   Trigger = "Deliver"
-const Return    Trigger = "Return"
-const Reinstate Trigger = "Reinstate"
+const Created          plinko.State = "Created"
+const Opened           plinko.State = "Opened"
+const Claimed          plinko.State = "Claimed"
+const ArriveAtStore    plinko.State = "ArrivedAtStore"
+const MarkedAsPickedUp plinko.State = "MarkedAsPickedup"
+const Delivered        plinko.State = "Delivered"
+const Canceled         plinko.State = "Canceled"
+const Returned         plinko.State = "Returned"
+
+const Submit    plinko.Trigger = "Submit"
+const Cancel    plinko.Trigger = "Cancel"
+const Open      plinko.Trigger = "Open"
+const Claim     plinko.Trigger = "Claim"
+const Deliver   plinko.Trigger = "Deliver"
+const Return    plinko.Trigger = "Return"
+const Reinstate plinko.Trigger = "Reinstate"
 ```
 
  Below, a state machine is created describing a set of states an order can progress through along with the triggers that can be used.
 
 ```go
-p := plinko.CreateDefinition()
+import "github.com/raishey/plinko/pkg/config"
+
+func OnNewOrderEntry(ctx context.Context, p plinko.Payload, t plinko.TransitionInfo) (plinko.Payload, error) {
+   // perform a series of steps based on the 
+   // payload and transition info
+   // ...
+
+   return p, nil
+}
+
+p := config.CreatePlinkoDefinition()
 
 p.Configure(Created).
    OnEntry(OnNewOrderEntry).
@@ -118,10 +130,12 @@ p.Configure(Returned)
 Once created, the next step is compiling the state machine.  This means the state machine is validated for complete-ness.  At this stage, Errors and Warnings are raised.  This incidentally allows the state machine definition to be fully testable in the build pipeline before deployment.
 
 ```go
-co := p.Compile()
+compilerOutput := p.Compile()
 
-if co.error {
-   // exit
+for _, m := range compilerOutput.Messages {
+   if m.CompileMessage == plinko.CompileError {
+      panic("FSM compilation error")
+   }
 }
 
 fsm := co.StateMachine
@@ -145,7 +159,7 @@ p.Configure(Opened).
    // ...
    Permit(Cancel, Canceled)
 
-p.Configure(Claimed).
+p.Configure(Claimed)
    // The key here is that Canceling from a Claimed state is not permitted.
 ```
 
@@ -205,10 +219,10 @@ p.Configure(Created).
    Permit(AddItem, Created)
 ```
 
-OnNewOrderEntry is function defined as such:
+OnNewOrderEntry is a function defined as such:
 
 ``` go
-func OnNewOrderEntry(p plinko.Payload, t plinko.TransitionInfo) (plinko.Payload, error) {
+func OnNewOrderEntry(ctx context.Context, p plinko.Payload, t plinko.TransitionInfo) (plinko.Payload, error) {
    // perform a series of steps based on the 
    // payload and transition info
    // ...
@@ -251,7 +265,7 @@ We can better understand how this works by looking at a standard configuration.
 
 ```go
 // given a standard definition ...
-p := plinko.CreateDefinition()
+p := config.CreatePlinkoDefinition()
 
 p.Configure(Created).
    OnEntry(OnNewOrderEntry).
@@ -277,7 +291,7 @@ In addition, we registered a FilteredSideEffect that only gets called on the req
 These are functions that have signature including the starting state, the destination state, the trigger used to kick off the transition and the payload.
 
 ```go
-func StateLogging(action StateAction, payload Payload, transitionInfo TransitionInfo) {
+func StateLogging(ctx context.Context, action StateAction, payload Payload, transitionInfo TransitionInfo, elapsed int64) {
    // this can typically be broken out into a function on the logger, but keeping
    // it here for clarity in demonstration
 
@@ -293,7 +307,7 @@ func StateLogging(action StateAction, payload Payload, transitionInfo Transition
    logger.LogStateInfo(logEntry)
 }
 
-func MetricsRecording(action StateAction, payload Payload, transitionInfo TransitionInfo) {
+func MetricsRecording(ctx context.Context, action StateAction, payload Payload, transitionInfo TransitionInfo, elapsed int64) {
    // this can be a simple function that pulls apart the details and sends them to
    // things like graphite, influx or any timeseries metrics database for graphing and alerting.
    metrics.RecordStateMovement(action, payload, transitionInfo)
@@ -309,13 +323,13 @@ State Machine error handling follows the same pattern that we see in golang in g
 While the `OnEntry` and `OnExit` function definitions take a `TransitionInfo` parameter that is immutable, and error operation is defined with a `ModifiableTransitionInfo` interface that allows the function to change the `DestinationState`.  In addition, the function also accepts the error raised during the `On[Entry|Exit]` operation so it can be interrogated when necessary.  The definition of an error operation handler looks like this:
 
 ```go
- ErrorOperation func(Payload, ModifiableTransitionInfo, error) (Payload, error)
+type ErrorOperation func(context.Context, Payload, ModifiableTransitionInfo, error) (Payload, error)
 ```
 
 An ErrorOperation function implements this signature and tests the error case.  Here is an example where we redirect based on a match.
 
 ```go
-func RedirectOnDeactivatedCustomer(p Payload, m ModifiableTransitionInfo, e error) (Payload, error) {
+func RedirectOnDeactivatedCustomer(ctx context.Context, p Payload, m ModifiableTransitionInfo, e error) (Payload, error) {
    if e == DeactivatedCustomerError {
       m.SetDestination(DeactivatedTriage)
       return RecordOrder(p, m)
@@ -364,3 +378,55 @@ fmt.Println(string(uml))
 
 ![PlantUML Rendered State Diagram](./docs/sample_state_diagram.png)
 
+### Alternative renderers
+
+Plinko supports multiple ways of generating documentation through Renderers.
+
+```go
+
+type Renderer interface {
+	Render(Graph) error
+}
+
+type Graph interface {
+	Edges(func(State, State, Trigger))
+	Nodes(func(State, StateConfig))
+}
+
+```
+
+Check out provided Renderers in the package
+
+```go
+import "github.com/raishey/plinko/internal/renderers"
+
+var uml *renderers.UML
+uml = renderers.NewUML(writer)
+
+var dot *renderers.Dot
+dot = renderers.NewDot(writer)
+
+p.Render(dot)
+```
+
+## Provide detailed State description using StateConfig
+
+You may want to provide additional context on the design of your state machine. You can describe states in detail by using StateOptions.
+
+```go
+type StateOption func(c *StateConfig)
+```
+
+Usage:
+
+```go
+import "github.com/raishey/plinko/pkg/config/state"
+
+p := config.CreatePlinkoDefinition()
+
+p.Configure(Returned, state.WithDescription("An order is Returned if it has been returned to the store."))
+```
+
+When provided, the Dot renderer can take enrich the State nodes with descriptions.
+
+![Dot graph](./docs/state_config_returned.png)
