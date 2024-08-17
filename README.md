@@ -427,6 +427,6 @@ p := config.CreatePlinkoDefinition()
 p.Configure(Returned, state.WithDescription("An order is Returned if it has been returned to the store."))
 ```
 
-When provided, the Dot renderer can take enrich the State nodes with descriptions.
+When provided, the Dot renderer can enrich State nodes with descriptions.
 
 ![Dot graph](./docs/state_config_returned.png)
