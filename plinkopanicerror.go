@@ -2,15 +2,13 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-package plinkoerror
+package plinko
 
 import (
 	"fmt"
-
-	"github.com/raishey/plinko"
 )
 
-func CreatePlinkoPanicError(pn interface{}, t plinko.TransitionInfo, step int, name string, stack string) error {
+func CreatePlinkoPanicError(pn interface{}, t TransitionInfo, step int, name string, stack string) error {
 	if err, ok := pn.(error); ok {
 		return &PlinkoPanicError{
 			TransitionInfo: t,
@@ -31,7 +29,7 @@ func CreatePlinkoPanicError(pn interface{}, t plinko.TransitionInfo, step int, n
 }
 
 type PlinkoPanicError struct {
-	plinko.TransitionInfo
+	TransitionInfo
 	StepNumber        int
 	StepName          string
 	InnerError        error

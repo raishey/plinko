@@ -11,7 +11,6 @@ import (
 
 	"github.com/raishey/plinko"
 	"github.com/raishey/plinko/internal/sideeffects"
-	"github.com/raishey/plinko/plinkoerror"
 )
 
 func (psm plinkoStateMachine) EnumerateActiveTriggers(payload plinko.Payload) ([]plinko.Trigger, error) {
@@ -19,7 +18,7 @@ func (psm plinkoStateMachine) EnumerateActiveTriggers(payload plinko.Payload) ([
 	sd2 := (*psm.pd.States)[state]
 
 	if sd2 == nil {
-		return nil, plinkoerror.CreatePlinkoStateError(state, fmt.Sprintf("State %s not found in state machine definition", state))
+		return nil, plinko.CreatePlinkoStateError(state, fmt.Sprintf("State %s not found in state machine definition", state))
 	}
 
 	keys := make([]plinko.Trigger, 0, len(sd2.Triggers))
@@ -36,12 +35,12 @@ func (psm plinkoStateMachine) CanFire(ctx context.Context, payload plinko.Payloa
 	sd2 := (*psm.pd.States)[state]
 
 	if sd2 == nil {
-		return plinkoerror.CreatePlinkoStateError(state, fmt.Sprintf("State '%s' not defined", state))
+		return plinko.CreatePlinkoStateError(state, fmt.Sprintf("State '%s' not defined", state))
 	}
 
 	triggerData := sd2.Triggers[trigger]
 	if triggerData == nil {
-		return plinkoerror.CreatePlinkoTriggerError(trigger, fmt.Sprintf("Triggers '%s' not defined for state '%s'", trigger, state))
+		return plinko.CreatePlinkoTriggerError(trigger, fmt.Sprintf("Triggers '%s' not defined for state '%s'", trigger, state))
 	}
 
 	if triggerData.Predicate != nil {
@@ -61,13 +60,13 @@ func (psm plinkoStateMachine) Fire(ctx context.Context, payload plinko.Payload, 
 	sd2 := (*psm.pd.States)[state]
 
 	if sd2 == nil {
-		return payload, plinkoerror.CreatePlinkoStateError(state, fmt.Sprintf("State not found in definition of states: %s", state))
+		return payload, plinko.CreatePlinkoStateError(state, fmt.Sprintf("State not found in definition of states: %s", state))
 	}
 
 	triggerData := sd2.Triggers[trigger]
 
 	if triggerData == nil {
-		return payload, plinkoerror.CreatePlinkoTriggerError(trigger, fmt.Sprintf("Trigger '%s' not found in definition for state: %s", trigger, state))
+		return payload, plinko.CreatePlinkoTriggerError(trigger, fmt.Sprintf("Trigger '%s' not found in definition for state: %s", trigger, state))
 	}
 
 	destinationState := (*psm.pd.States)[triggerData.DestinationState]
@@ -80,7 +79,7 @@ func (psm plinkoStateMachine) Fire(ctx context.Context, payload plinko.Payload, 
 
 	if triggerData.Predicate != nil {
 		if err := triggerData.Predicate(ctx, payload, td); err != nil {
-			return payload, plinkoerror.CreatePlinkoTriggerError(trigger, fmt.Sprintf("Conditional Trigger '%s' conditions not met for state: %s", trigger, state))
+			return payload, plinko.CreatePlinkoTriggerError(trigger, fmt.Sprintf("Conditional Trigger '%s' conditions not met for state: %s", trigger, state))
 		}
 	}
 
