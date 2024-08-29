@@ -11,7 +11,6 @@ import (
 
 	"github.com/raishey/plinko"
 	"github.com/raishey/plinko/internal/sideeffects"
-	"github.com/raishey/plinko/plinkoerror"
 )
 
 type ChainedFunctionCall struct {
@@ -73,7 +72,7 @@ func executeChain(ctx context.Context, funcs []ChainedFunctionCall, p plinko.Pay
 		if err1 := recover(); err1 != nil {
 			stack := string(debug.Stack())
 			retPayload = p
-			err = plinkoerror.CreatePlinkoPanicError(err1, t, step, stepName, stack)
+			err = plinko.CreatePlinkoPanicError(err1, t, step, stepName, stack)
 		}
 	}()
 
@@ -107,7 +106,7 @@ func executeErrorChain(ctx context.Context, funcs []ChainedErrorCall, p plinko.P
 			stack := string(debug.Stack())
 			retPayload = p
 			retTd = t
-			retErr = plinkoerror.CreatePlinkoPanicError(err1, t, step, stepName, stack)
+			retErr = plinko.CreatePlinkoPanicError(err1, t, step, stepName, stack)
 		}
 	}()
 

@@ -2,12 +2,10 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-package plinkoerror
-
-import "github.com/raishey/plinko"
+package plinko
 
 type PlinkoStateError struct {
-	plinko.State
+	State
 	ErrorMessage string
 }
 
@@ -15,7 +13,7 @@ func (e *PlinkoStateError) Error() string {
 	return e.ErrorMessage
 }
 
-func CreatePlinkoStateError(state plinko.State, errorMessage string) error {
+func CreatePlinkoStateError(state State, errorMessage string) error {
 	return &PlinkoStateError{
 		State:        state,
 		ErrorMessage: errorMessage,
