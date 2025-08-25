@@ -1,7 +1,3 @@
-/**
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
 package renderers_test
 
 import (
@@ -44,7 +40,7 @@ func Test_CreateDot(t *testing.T) {
 
 	err := p.Render(renderers.NewDot(buf))
 	assert.Nil(t, err)
-	assert.Contains(t, buf.String(), `"UnderReview" -> "PublishedOrder"[label="CompleteReview"];`)
-	assert.Contains(t, buf.String(), `Very much new order`)
-	assert.Contains(t, buf.String(), `Where it all begins`)
+	assert.Contains(t, buf.String(), "\"UnderReview\" -> \"PublishedOrder\"[label=\"CompleteReview\"];")
+	assert.Contains(t, buf.String(), "Very much new order")
+	assert.Contains(t, buf.String(), "Where it all begins")
 }
