@@ -9,7 +9,7 @@ import (
 	"fmt"
 
 	"github.com/raishey/plinko"
-	"github.com/raishey/plinko/internal/renderers"
+	"github.com/raishey/plinko/pkg/renderers"
 )
 
 func (pd PlinkoDefinition) Compile() plinko.CompilerOutput {
