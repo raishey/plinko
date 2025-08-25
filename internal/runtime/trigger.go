@@ -110,7 +110,7 @@ func (psm plinkoStateMachine) Fire(ctx context.Context, payload plinko.Payload, 
 		var errSub error
 
 		elapsed := time.Since(start).Milliseconds()
-		payload, mtd, errSub := destinationState.Callbacks.ExecuteErrorChain(ctx, payload, td, err, elapsed)
+		payload, _, errSub := destinationState.Callbacks.ExecuteErrorChain(ctx, payload, td, err, elapsed)
 
 		if errSub != nil {
 			err = errSub
