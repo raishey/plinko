@@ -84,33 +84,33 @@ func (psm plinkoStateMachine) Fire(ctx context.Context, payload plinko.Payload, 
 		}
 	}
 
-	sideeffects.Dispatch(ctx, plinko.BeforeTransition, psm.pd.SideEffects, payload, td, time.Since(start).Milliseconds())
+	elapsed := time.Since(start).Milliseconds()
+	sideeffects.Dispatch(ctx, plinko.BeforeTransition, psm.pd.SideEffects, payload, td, elapsed)
 
 	payload, err := sd2.Callbacks.ExecuteExitChain(ctx, payload, td)
 
 	if err != nil {
-		payload, td, errSub := sd2.Callbacks.ExecuteErrorChain(ctx, payload, td, err, time.Since(start).Milliseconds())
+		elapsed := time.Since(start).Milliseconds()
+		payload, td, errSub := sd2.Callbacks.ExecuteErrorChain(ctx, payload, td, err, elapsed)
 
 		if errSub != nil {
 			// this ensures that the error condition is trapped and not overridden to the caller of the trigger function
 			err = errSub
 		}
-		sideeffects.Dispatch(ctx, plinko.BetweenStates, psm.pd.SideEffects, payload, td, time.Since(start).Milliseconds())
+		elapsed = time.Since(start).Milliseconds()
+		sideeffects.Dispatch(ctx, plinko.BetweenStates, psm.pd.SideEffects, payload, td, elapsed)
 		return payload, err
 	}
 
-	sideeffects.Dispatch(ctx, plinko.BetweenStates, psm.pd.SideEffects, payload, td, time.Since(start).Milliseconds())
+	elapsed = time.Since(start).Milliseconds()
+	sideeffects.Dispatch(ctx, plinko.BetweenStates, psm.pd.SideEffects, payload, td, elapsed)
 
 	payload, err = destinationState.Callbacks.ExecuteEntryChain(ctx, payload, td)
 	if err != nil {
 		var errSub error
 
-		payload, mtd, errSub := destinationState.Callbacks.ExecuteErrorChain(ctx, payload, td, err, time.Since(start).Milliseconds())
-		_ = &sideeffects.TransitionDef{
-			Source:      mtd.GetSource(),
-			Destination: mtd.GetDestination(),
-			Trigger:     mtd.GetTrigger(),
-		}
+		elapsed := time.Since(start).Milliseconds()
+		payload, _, errSub := destinationState.Callbacks.ExecuteErrorChain(ctx, payload, td, err, elapsed)
 
 		if errSub != nil {
 			err = errSub
@@ -119,7 +119,8 @@ func (psm plinkoStateMachine) Fire(ctx context.Context, payload plinko.Payload, 
 		return payload, err
 	}
 
-	sideeffects.Dispatch(ctx, plinko.AfterTransition, psm.pd.SideEffects, payload, td, time.Since(start).Milliseconds())
+	elapsed = time.Since(start).Milliseconds()
+	sideeffects.Dispatch(ctx, plinko.AfterTransition, psm.pd.SideEffects, payload, td, elapsed)
 
 	return payload, nil
 }
