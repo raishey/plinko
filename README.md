@@ -399,7 +399,7 @@ type Graph interface {
 Check out provided Renderers in the package
 
 ```go
-import "github.com/raishey/plinko/internal/renderers"
+import "github.com/raishey/plinko/pkg/renderers"
 
 var uml *renderers.UML
 uml = renderers.NewUML(writer)

@@ -9,9 +9,9 @@ import (
 	"testing"
 
 	"github.com/raishey/plinko"
-	"github.com/raishey/plinko/internal/renderers"
 	"github.com/raishey/plinko/pkg/config"
 	"github.com/raishey/plinko/pkg/config/state"
+	"github.com/raishey/plinko/pkg/renderers"
 	"github.com/stretchr/testify/assert"
 )
 
