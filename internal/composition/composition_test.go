@@ -12,7 +12,6 @@ import (
 
 	"github.com/raishey/plinko"
 	"github.com/raishey/plinko/internal/sideeffects"
-	"github.com/raishey/plinko/plinkoerror"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -271,7 +270,7 @@ func TestChainedFunctionChainWithPanic(t *testing.T) {
 	assert.Nil(t, p)
 	assert.NotNil(t, err)
 
-	e := err.(*plinkoerror.PlinkoPanicError)
+	e := err.(*plinko.PlinkoPanicError)
 	assert.NotNil(t, e)
 
 	assert.Equal(t, "panic-error", e.InnerError.Error())
@@ -309,7 +308,7 @@ func TestErrorFunctionChainWithPanic(t *testing.T) {
 	assert.NotNil(t, err)
 	assert.Equal(t, plinko.State("GoodState"), td2.Destination)
 
-	e := err.(*plinkoerror.PlinkoPanicError)
+	e := err.(*plinko.PlinkoPanicError)
 	assert.NotNil(t, e)
 
 	assert.Equal(t, "panic-error", e.InnerError.Error())
