@@ -10,7 +10,6 @@ import (
 	"testing"
 
 	"github.com/raishey/plinko"
-	"github.com/raishey/plinko/plinkoerror"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -256,7 +255,7 @@ func TestCanFireWithInvalidStateAndTrigger(t *testing.T) {
 	err := psm.CanFire(context.TODO(), payload, Open)
 	assert.NotNil(t, err)
 
-	var pse *plinkoerror.PlinkoStateError
+	var pse *plinko.PlinkoStateError
 	assert.True(t, errors.As(err, &pse))
 
 	assert.Equal(t, plinko.State("not-a-real-state"), pse.State)
@@ -266,7 +265,7 @@ func TestCanFireWithInvalidStateAndTrigger(t *testing.T) {
 
 	assert.NotNil(t, err)
 
-	var pte *plinkoerror.PlinkoTriggerError
+	var pte *plinko.PlinkoTriggerError
 	assert.True(t, errors.As(err, &pte))
 
 	assert.Equal(t, plinko.Trigger("Run"), pte.Trigger)
@@ -298,7 +297,7 @@ func TestFireWithInvalidStateAndTrigger(t *testing.T) {
 	assert.NotNil(t, err)
 	assert.NotNil(t, p1)
 
-	var pse *plinkoerror.PlinkoStateError
+	var pse *plinko.PlinkoStateError
 	assert.True(t, errors.As(err, &pse))
 
 	assert.Equal(t, plinko.State("not-a-real-state"), pse.State)
@@ -309,7 +308,7 @@ func TestFireWithInvalidStateAndTrigger(t *testing.T) {
 	assert.NotNil(t, err)
 	assert.NotNil(t, p1)
 
-	var pte *plinkoerror.PlinkoTriggerError
+	var pte *plinko.PlinkoTriggerError
 	assert.True(t, errors.As(err, &pte))
 
 	assert.Equal(t, plinko.Trigger("Run"), pte.Trigger)
